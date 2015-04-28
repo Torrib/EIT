@@ -44,13 +44,13 @@
 
 \chapter*{
     \begin{center}
-        Abstract
+        Abstrakt
     \end{center}
 }
 
-I landsbyen \textit{Instrumentering og styring over Internett} er det tilgjengelig flere byggesett av servoer og sensorer som kan bli benyttet for å konstruere ulike typer roboter. Disse byggesettene er produsert av det Sør-Koreanske selskapet Robotis. Dette selskapet gir ut sin egen programvare for å programmere forskjellige robotkonfigurasjoner og låser dermed brukeren fast til å utvikle andre innovative løsninger som går utenfor programvaren.
+I landsbyen \textit{Instrumentering og styring over Internett} er det tilgjengelig flere byggesett av servoer og sensorer som kan bli benyttet for å konstruere ulike typer roboter. Disse byggesettene er produsert av det Sør-Koreanske selskapet Robotis. Dette selskapet gir ut sin egen programvare for å programmere forskjellige robotkonfigurasjoner og utelukker brukeren for å utvikle andre innovative løsninger som går utenfor det gitte rammeverket.
 
-For å åpne muligheten for nye løsninger har gruppen gjennom prosjektet utviklet et API for å kunne styre servomotorene over internett, og gå bort ifra Robotis sin programvare. Dette APIet skal gjøre det enklere for brukere å lage egne konstruksjoner med mindre restriksjoner.
+For å åpne muligheten for nye løsninger har gruppen gjennom prosjektet utviklet et Application Program Interface(API) for å kunne styre servomotorene over internett, og gå bort ifra Robotis sin programvare. Dette APIet skal gjøre det enklere for brukere å lage egne konstruksjoner med mindre restriksjoner.
 
 Gruppen har løst dette ved hjelp av å bruke en Raspberry Pi som styringsenhet, en nettside eller en Playstation kontroller som klient og en server som håndterer kommunikasjonen mellom styringsenhet og klient.
 
@@ -66,19 +66,20 @@ Først forklares oppgaven og de forskjellige elementene den består av. Deretter
 Eksempler på hva andre kan lage ved hjelp av APIet vil vises frem og til slutt vil det bli listet opp ting som kan jobbes videre med i fremtiden.
 
 \section{Prosjektbeskrivelse}
-Oppgaven gruppen kom frem til var å produsere et bibliotek / API som gjør det mulig og styre Dynamixel servoer \cite{Dynamixel} over ett nettverk. Produktet vi har laget vil hovedsaklig være et verktøy for andre utviklere men vi har laget noen demo applikasjoner for å vise frem hva man kan lage med biblioteket. Problemet med det som eksisterer fra før, er at det er proprietært og reduserer muligheten utviklere har når de skal lage programvare som benytter servoene.
+Oppgaven gruppen kom frem til var å produsere et bibliotek / API som gjør det mulig å styre Dynamixel servoer\cite{Dynamixel} over ett nettverk. Produktet vil hovedsaklig være et verktøy for andre utviklere men vi har laget noen demo applikasjoner for å vise frem hva man kan lage med APIet. Problemet med det som eksisterer fra før, er at det er proprietært og reduserer muligheten utviklere har når de skal lage programvare som benytter servoene.
 
 \subsection{Dynamixel AX-12}
-Dynamixel AX-12 er servoer med dedikerte mikrokontrollere som produseres av Robotis, et Sør-Koreansk selskap. De brukes av hobbyentusiaster og opplæringsinstitusjoner verden rundt til å modellere og simulere roboter, kjøretøyer og andre konfigurasjoner. De er ettertraktet fordi de er billige, robuste og svært fleksible. De er også lette å ta i bruk, mye på grunn av de dedikerte mikrokontrollene som styrer hver individuelle servo.
+Dynamixel AX-12 er servoer med dedikerte mikrokontrollere som produseres av Robotis, et Sør-Koreansk selskap. De brukes av hobbyentusiaster og opplæringsinstitusjoner verden rundt til å modellere og simulere roboter, kjøretøyer og andre konfigurasjoner. De er ettertraktet fordi de er billige, robuste og svært fleksible. 
 
 Elementært sett, har servoene tre input pinner, en for strøm, en for jording og den siste er en seriell datalinje. Hvis man skal ha flere servoer kobles de sammen i serie og de individuelle servoene styres ved at hver enkelt servo har sin unike ID. Servoene drives av en spenning på 9-12 volt.
 
 \begin{figure}[h!]
 	\includegraphics[scale=0.3]{imgs/servo_ax12-5}
 	\centering
+	\caption{Ax-12+ Dynamixel, Robotis}
 \end{figure}
 
-Dataene som blir sendt gjennom data bussen blir sendt som heksadesimale pakker strukturert, illustrert ved figur \ref{pkg}. På denne måten kan man sette konfigurasjoner som blant annet hastighet og posisjon. Vi kommer ikke til og gå i detalj på hvordan dette fungerer men mer informasjon kan finnes i Dynamixel AX-12 manualen \cite{Dynamixel}.
+Dataene som blir sendt gjennom databussen blir sendt som heksadesimale pakker, illustrert ved figur \ref{pkg}. På denne måten kan man sette konfigurasjoner som blant annet hastighet og posisjon. For mer informasjon se Dynamixel AX-12+ manualen \cite{Dynamixel}.
 
 \begin{figure}[h!]
 	\includegraphics[scale=0.5]{imgs/dxl_presentload}
@@ -88,11 +89,11 @@ Dataene som blir sendt gjennom data bussen blir sendt som heksadesimale pakker s
 \end{figure}
 
 \subsection{Bruksområder}
-Det som finnes av offisiell støtte for Dynamixel AX-12 servoene fra før er proprietært, og har ikke åpen kildekode. Dette gjør det vanskelig for utviklere og lage egen programvare, spesielt over nettverk. Programvaren vi utvikler vil åpne opp og gjøre det enklere for andre utviklere og lage spennende og sammfunnsnyttige applikasjoner. 
+Det som finnes av offisiell støtte for Dynamixel AX-12 servoene fra før er proprietært, og har ikke åpen kildekode. Dette gjør det vanskelig for utviklere å lage egen programvare, spesielt over nettverk. Programvaren vil åpne opp og gjøre det enklere for andre utviklere å lage innovative og sammfunnsnyttige applikasjoner. 
 
-Løsningen vi tilbyr åpner for et stort antall utviklingsområder. I hovedsak så er det opplæringsinstitusjoner som vil kunne ha nytte av det vi lager. Studenter ved neste års \textit{Instrumentering og Styring over Internett}, har stor kreativ frihet til å enten bygge videre eller lage noe helt nytt. 
+Løsningen åpner for et stort antall utviklingsområder. I hovedsak er det opplæringsinstitusjoner som vil ha nytte av det vi lager. Studenter ved neste års \textit{Instrumentering og Styring over Internett}, har stor kreativ frihet til å enten bygge videre eller lage noe helt nytt. 
 
-Et eksempel på et bruksområde er å feste et kamera på maskinen for så å drive med fjernstyring for å innhente visuell informasjon. Dette vil være spesielt relevant for områder som ikke er egnet for mennesker på grunn av miljø eller i militære sammenhenger. Det er også ingenting som tilsier at APIet bare begrenses til kjøretøy. Alle fjernstyrte servokonfigurasjoner vil kunne styres over nettverk. Eksempler på servokonfigurasjoner er sluser, dører, industrimaskiner, roboter, etc.
+Et eksempel på bruksområde er å feste et kamera på maskinen for så å fjernstyre maskinen og innhente visuell informasjon. Dette vil være spesielt relevant for områder som ikke er egnet for mennesker på grunn av miljø eller i militære sammenhenger. APIet er ikke begrenset til kjøretøy. Alle fjernstyrte servokonfigurasjoner vil kunne styres over nettverk. Eksempler på alternative servokonfigurasjoner er sluser, dører, industrimaskiner, roboter, etc.
 
 
 \clearpage
@@ -101,7 +102,7 @@ Et eksempel på et bruksområde er å feste et kamera på maskinen for så å dr
 Dette kapittelet beskriver arkitekturen og er ment å gi en overordnet oversikt over de forskjellige delene av prosjektet og hvordan de henger sammen. Mer detaljerte beskrivelser av de forskjellige delene kommer senere i rapporten.
 
 \section{Server-Klient Arkitektur}
-Arkitekturen som ble implementert er skildret ved figur \ref{Ark} som viser hvordan de forskjellige elementene i prosjektet henger sammen. Punkt 1 er selve enheten som består av en Raspberry pi\cite{Raspberry} som er koblet til servoene. Denne enheten kommuniserer med en ekstern server (2) gjennom sockets\cite{Sockets}. Serveren (2) håndterer alt av forbindelser mellom brukere og enhetene. Når en enhet kobler seg til, vil den registrere seg med et navn, dette navnet kan så benyttes av brukere for og kommunisere med enheten. Del 3 av prosjektet er selve brukeren. Det kan være alt fra en applikasjon på telefon til styring med en dedikert kontroller. Applikasjonen pakker instruksjoner inn i et JSON objekt\cite{JSON} og sender det til serveren. Serveren sjekker at formatet er riktig strukturert og sender det videre til riktig enhet.
+Arkitekturen som ble implementert er skildret ved figur \ref{Ark} og viser hvordan de forskjellige elementene i prosjektet henger sammen. Punkt 1 er selve enheten som består av en Raspberry Pi\cite{Raspberry} som er koblet til servoene. Denne enheten kommuniserer med en ekstern server(2) gjennom sockets\cite{Sockets}. Serveren(2) håndterer alt av forbindelser mellom brukere og enhetene. Når en enhet kobler seg til, vil den registrere seg med et navn, Dette navnet kan så benyttes av brukere for å kommunisere med enheten. Punkt 3 er selve brukeren. Det kan være alt fra en applikasjon på telefon til styring med en dedikert kontroller. Applikasjonen pakker instruksjoner inn i et JSON objekt\cite{JSON} og sender det til serveren. Serveren sjekker at formatet er riktig strukturert og sender det videre til riktig enhet.
 
 \begin{figure}[H]
 	\includegraphics[scale=0.7]{imgs/Arcitechture}
@@ -111,28 +112,29 @@ Arkitekturen som ble implementert er skildret ved figur \ref{Ark} som viser hvor
 \end{figure}
 
 \section{Andre Mulige Arkitekturer}
-Det var flere forskjellige typer arkitekturer som ble vurdert før utviklingen av prosjektet begynte. Arkitekturene ble sammenlignet ved positive og negative egenskaper med tanke på interesse av oppgaven, gjennomførbarhet og hva vi ønsket og oppnå. Til slutt satt vi igjen med en arkitektur som gruppen mente fungerte best til prosjektet.
+Det var flere forskjellige typer arkitekturer som ble vurdert før utviklingen av prosjektet begynte. Arkitekturene positive og negative egenskaper ble vurdert med tanke på interesse, gjennomførbarhet og målet med oppgaven. Til slutt satt vi igjen med den arkitekturen som gruppen anså best til prosjektet.
 
 \subsection{Klient-Enhet}
-I denne arkitekturen fungerer enheten som en server og all kommunikasjon går direkte mellom klienten og enheten. Fordelen med en sånn type arkitektur er at den er relativt enkel å implementere da den fjerner ett ledd. Det vil også bli mindre forsinkelse på kommunikasjonen mellom dem. Den største ulempen med denne typen arkitektur er at enheten ikke nødvendigvis har mulighet til og sette statisk IP (avhenger av nettet man er koblet til) og det kan bli problematisk for brukere og koble seg til den.
+I denne arkitekturen fungerer enheten som en server og all kommunikasjon går direkte mellom klienten og enheten. Fordelen med en sånn type arkitektur er at den er relativt enkel å implementere da den fjerner ett ledd. Det vil også bli mindre forsinkelse på kommunikasjonen. Den største ulempen med denne typen arkitektur er at enheten ikke nødvendigvis har mulighet til og sette statisk IP (avhenger av nettet man er koblet til) og det kan bli problematisk for brukere og koble seg til den.
 
 \subsection{Klient-Server, Enhet med delt server software}
-Denne arkitekturen er ganske lik den vi har valgt men i stedet for å ha et dedikert program for serveren og et dedikert program for enheten så er det samme programvare. Det vil si at at programvaren selv detekterer - eller blir konfigurert - for å være server eller enhet og så håndterer den signalene deretter. Fordelen med å gjøre det på denne måten er at det blir mindre å tenke på for folk som skal sette det opp. Ulempen er at det blir mye mer krevende og komplisert å utvikle da det blir vanskeligere å fordele og holde styr på arbeidsoppgaver og ansvarsområder siden man i praksis utvikler to deler i samme programvare. Dette er altså en lite modulær løsning og ble på dette grunnlaget ikke valgt.
+Denne arkitekturen er ganske lik den vi har valgt men i stedet for å ha et dedikert program for serveren og et dedikert program for enheten så er det samme programvare. Det vil si at at programvaren selv detekterer - eller blir konfigurert - for å være server eller enhet og håndterer signalene deretter. Fordelen med å gjøre det på denne måten er at det blir mer brukervennlig. Ulempen er at det blir mer krevende og komplisert å utvikle, da det blir vanskeligere å fordele og holde styr på arbeidsoppgaver og ansvarsområder. Dette er en lite modulær løsning og ble på dette grunnlaget ikke valgt.
 
 \section{Arkitekturvalg}
-\textbf{Fordelene} med arkitekturen vi valgte er at det er en ganske standard måte å løse lignende utfordringer på. Det gjør at det er godt dokumentert og enkelt å finne informasjon hvis det skulle oppstå problemer. En annen fordel er at man slipper og hente ut IP adressen manuelt fra enheten og man kan forholde seg til ett endepunkt. Enheten vil bare registrere seg på serveren og så kan sluttbrukeren nå enheten gjennom serveren. Denne løsningen er også den beste for å støtte flere brukere og flere enheter, siden man får ett felles kontaktpunkt hvor man kan håndtere kommunikasjon. Alle punktene over gjør det mye mer brukervennlig for sluttbrukere å bruke systemet.
 
-\textbf{Ulemper} med denne type arkitektur går mest på utviklingen. Med dette menes at flere forskjellige teknologier er tatt i bruk, noe som krever mer kompetanse av utviklerne. Kompleksiteten er også høyere enn Klient - Enhet arkitektur, men alle de positive sidene på brukeropplevelsen veier opp for de ekstra utfordringene under utviklingen. Ulempene ved denne arkitekturen er ganske lik ulempene ved enhet med delt server software, men en dedikert server gjør systemet mer modulært noe som gjør at de forskjellige delene ved systemet kan utvikles samtidig.
+\paragraph{Fordelene} med arkitekturen vi valgte er at det er en standard måte å løse lignende problemer. Dette gjør at det er godt dokumentert og enkelt å finne informasjon hvis det skulle oppstå problemer. En annen fordel er at man slipper og hente ut IP adressen manuelt fra enheten og man kan forholde seg til ett endepunkt. Enheten vil registrere seg på serveren og blir tilgjengelig for sluttbrukeren gjennom serveren. Denne arkitekturen er den beste for å støtte flere brukere og enheter, siden man får ett felles kontaktpunkt hvor man kan håndtere kommunikasjon. Alle punktene over gjør det brukervennlig for sluttbrukere. \newline
+
+\paragraph{Ulemper} med denne type arkitektur går mest på implementeringen. Med dette menes at flere forskjellige teknologier er tatt i bruk, noe som krever mer kompetanse av utviklerne. Kompleksiteten er også høyere enn Klient - Enhet arkitektur, men alle de positive sidene på brukeropplevelsen veier opp for de ekstra utfordringene under utviklingen. 
 
 
 \chapter{Enhetslaget}
-Enhetslaget består av selve enheten som i vårt tilfelle er et simpelt kjøretøy bygd opp av fire servoer, en raspberry pi med programvaren som styrer servoene, og batteripakker for både servoene og raspberry pi’en for og få alt trådløst.
+Enhetslaget består av selve enheten som i dette tilfelle er et kjøretøy bygd opp av fire servoer. I tillegg til dette, en Raspberry Pi som styrer servoene og batteripakker for både servoene og Raspberry Pi’en.
 
 \section{Maskinvaren}
-Tidlig i prosjektfasen diskuterte gruppen flere muligheter for maskinvare som kunne brukes til å kjøre kontrollprogramvaren. Ønske, var å bruke maskinvare som var lett tilgjengelig, godt dokumentert, brukervennlig og så billig som mulig, men samtidig pålitelig og fleksibel nok til å gi brukere god kontroll over lavnivå funksjonalitet. 
+Tidlig i prosjektfasen diskuterte gruppen flere muligheter for maskinvare som kunne brukes til å kjøre kontrollprogramvaren. Kriteriene til maskinvaren var tilgjengelighet, god dokumentasjon, brukervennlighet og pris.I tillegg skal den være pålitelig og fleksibel nok til å gi brukere god kontroll over lavnivå funksjonalitet. 
 
-\subsection{Hjernen}
-Gruppen vurderte først en Arduino modell da det er en godt kjent og dokumentert plattform, de er i tillegg billige og bruker lite strøm noe som gjør dem ideelle til batteridrevne enheter. De krever dessverre ekstra maskinvare for å kunne støtte wifi (noe vi så på som essensielt). Dette førte til at valget falt på å benytte en Raspberry pi modell. Disse er noe dyrere enn de fleste Arduino produkter, men er mye mer fleksible og brukervennlige, de er godt dokumentert og har et stort brukersamfunn. De bruker generelt mer strøm enn Arduino moduler, men man kan benytte Raspberry pi moduler som er beregnet for et lavt strømforbruk\cite{RaspberryApluss} dersom dette er ønskelig. Ettersom et gruppemedlem allerede hadde en b+ modell tilgjengelig ble det vedtatt å benytte denne.
+\subsection{Raspberry Pi}
+Gruppen vurderte først en Arduino\cite{Arduino}. Arduino er enkle datamaskiner som vanligvis brukes til prototyping av små prosjekter. Det er en godt kjent og dokumentert plattform, som er billig og bruker lite strøm. Dette gjør dem ideelle til batteridrevne enheter. De krever derimot ekstra maskinvare for å kunne støtte wifi. Dette førte til at valget falt på en Raspberry pi. Raspberry Pi er dyrere enn Arduino produkter, men er mer fleksible og brukervennlige. De er godt dokumentert og har et stort brukersamfunn. De bruker generelt mer strøm enn Arduino, men man kan benytte Raspberry Pi moduler som er beregnet for et lavt strømforbruk\cite{RaspberryApluss}. Ettersom et gruppemedlem allerede hadde en Raspberry Pi tilgjengelig, ble det vedtatt å benytte denne. For å gi en Raspberry Pi støtte for Wi-Fi ble det benyttet en wifi USB-dongle av typen edimax\cite{dongle}.
 
 \begin{figure}[H]
 	\includegraphics[scale=0.47]{imgs/RaspberryPi}
@@ -141,11 +143,8 @@ Gruppen vurderte først en Arduino modell da det er en godt kjent og dokumentert
 	\label{Rasp}
 \end{figure}
 
-\subsection{Wifi}
-For å gi Raspberryen støtte for wifi ble det benyttet en wifi USB-dongle av typen edimax\cite{dongle}. Denne var enkel å installere da Raspbian (det Linuxbaserte operativsystemet til Raspberry pi) allerede støttet den, og dermed krevde minimalt med konfigurasjon, noe som gjør den svært brukervennlig. Den bruker også svært lite strøm, noe som er ideelt for batteridrevne enheter. I teorien kan man benytte seg av hvilken som helst wifi dongle, så lenge den støttes av det valgte operativsystemet.
-
 \subsection{Servo oppkobling}
-Dynamixel bussen kommuniserer med Raspberryen gjennom USB porten via en kommersiell adapter\cite{USBadapter}. Kontroll-programvaren detekterer selv antall servoer tilkoblet bussen og er designet for å gi “plug and play” funksjonalitet. Som batteripakke til Raspberryen ble en strømbank av typen Ye! Energy Mini\cite{Energybank} koblet til mikroUSB inngangen på Raspberryen. Servoene fikk strøm fra den kommersielle Dynamixel batteripakken. Merk at disse batteripakkene lett kan byttes ut med andre alternativer så lenge de leverer riktig spenning og har rimelig energikapasitet da batteritilkoblingene er svært generelle og bruker standariserte tilkoblinger. Det er også mulig å koble både Raspberryen og servoene til samme batteripakke, men dette vil kreve ekstra maskinvare i form av strømforsyning og spenningsregulator. Dette vil gjøre systemet mer kompakt, men vil legge til et lag med økt kompleksitet av maskinvare.
+Dynamixel bussen kommuniserer med en Raspberry gjennom USB porten via en kommersiell adapter\cite{USBadapter}. Kontroll-programvaren detekterer selv antall servoer tilkoblet bussen og er designet for å gi “plug and play” funksjonalitet. Som batteripakke til Raspberryen ble en strømbank av typen Ye! Energy Mini\cite{Energybank} koblet til mikroUSB inngangen på Raspberryen. Servoene fikk strøm fra den kommersielle Dynamixel batteripakken. Merk at disse batteripakkene lett kan byttes ut med andre alternativer så lenge de leverer riktig spenning og har rimelig energikapasitet da batteritilkoblingene er svært generelle og bruker standariserte tilkoblinger. Det er også mulig å koble både Raspberryen og servoene til samme batteripakke, men dette vil kreve ekstra maskinvare i form av strømforsyning og spenningsregulator. Dette vil gjøre systemet mer kompakt, men vil legge til et lag med økt kompleksitet av maskinvare.
 
 \begin{figure}[H]
 	\includegraphics[scale=0.07]{imgs/full_set}
@@ -401,6 +400,10 @@ Som en helhet har prosjektet gått bra. Oppgaven var litt lite spesifisert men d
 \bibitem{DynaSens}
 	Dynamixel Sensor Module AX-S1 - Robotis
 	\\\texttt{http://support.robotis.com/en/product/auxdevice/sensor/dxl\_ax\_s1.htm}
+
+\bibitem{Arduino}
+	Arduino, mikrokontroller
+	\\\texttt{http://www.arduino.cc/}
 
 \end{thebibliography}
 
