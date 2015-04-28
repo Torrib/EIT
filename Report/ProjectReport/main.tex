@@ -137,11 +137,32 @@ Tidlig i prosjektfasen diskuterte gruppen flere muligheter for maskinvare som ku
 \subsection{Hjernen}
 Gruppen vurderte først en Arduino modell da det er en godt kjent og dokumentert plattform, de er i tillegg billige og bruker lite strøm noe som gjør dem ideelle til batteridrevne enheter. De krever dessverre ekstra maskinvare for å kunne støtte wifi (noe vi så på som essensielt). Dette førte til at valget falt på å benytte en Raspberry pi modell. Disse er noe dyrere enn de fleste Arduino produkter, men er mye mer fleksible og brukervennlige, de er godt dokumentert og har et stort brukersamfunn. De bruker generelt mer strøm enn Arduino moduler, men man kan benytte Raspberry pi moduler som er beregnet for et lavt strømforbruk\cite{RaspberryApluss} dersom dette er ønskelig. Ettersom et gruppemedlem allerede hadde en b+ modell tilgjengelig ble det vedtatt å benytte denne.
 
+\begin{figure}[H]
+	\includegraphics[scale=0.47]{imgs/RaspberryPi}
+	\centering
+	\caption{Raspberry Pi}
+	\label{Rasp}
+\end{figure}
+
 \subsection{Wifi}
 For å gi Raspberryen støtte for wifi ble det benyttet en wifi USB-dongle av typen edimax\cite{dongle}. Denne var enkel å installere da Raspbian (det Linuxbaserte operativsystemet til Raspberry pi) allerede støttet den, og dermed krevde minimalt med konfigurasjon, noe som gjør den svært brukervennlig. Den bruker også svært lite strøm, noe som er ideelt for batteridrevne enheter. I teorien kan man benytte seg av hvilken som helst wifi dongle, så lenge den støttes av det valgte operativsystemet.
 
 \subsection{Servo oppkobling}
 Dynamixel bussen kommuniserer med Raspberryen gjennom USB porten via en kommersiell adapter\cite{USBadapter}. Kontroll-programvaren detekterer selv antall servoer tilkoblet bussen og er designet for å gi “plug and play” funksjonalitet. Som batteripakke til Raspberryen ble en strømbank av typen Ye! Energy Mini\cite{Energybank} koblet til mikroUSB inngangen på Raspberryen. Servoene fikk strøm fra den kommersielle Dynamixel batteripakken. Merk at disse batteripakkene lett kan byttes ut med andre alternativer så lenge de leverer riktig spenning og har rimelig energikapasitet da batteritilkoblingene er svært generelle og bruker standariserte tilkoblinger. Det er også mulig å koble både Raspberryen og servoene til samme batteripakke, men dette vil kreve ekstra maskinvare i form av strømforsyning og spenningsregulator. Dette vil gjøre systemet mer kompakt, men vil legge til et lag med økt kompleksitet av maskinvare.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.07]{imgs/full_set}
+	\centering
+	\caption{Fullt sett med hardware}
+	\label{fllsett}
+\end{figure}
+
+\begin{figure}[H]
+	\includegraphics[scale=0.07]{imgs/assembled}
+	\centering
+	\caption{Fullt sett med hardware sammensatt}
+	\label{fllsett}
+\end{figure}
 
 \section{Programvaren}
 Vi vurderte i begynnelsen å skrive vårt eget lavnivåbibliotek, hovedsakelig for å kunne eliminere bruken av en komersiell adapter mellom Raspberry pi’en og Dynamixel bussen. Det ble raskt oppdaget at dette ikke var praktisk mulig på grunn av strukturen til bussen samt alle de potensielle feilkildene det ga opphav til. Det ville blant annet ha krevd en egen tri-state buffer for å gjøre det mulig å kommunisere med bussen over UART, noe som ville ha økt maskinvare kompleksiteten og satt større krav til maskinvarekonstruksjon for eventuelle fremtidige brukere.
@@ -195,14 +216,17 @@ Wifi støtten krever ingen ekstra konfigurasjon dersom en edimax dongle benyttes
 For å ha en forbindelse mellom bruker og enhet er det nødvendig med en server. Serveren sin oppgave er å mate enheten med kommandoer som brukerapplikasjonen sender. Den har også funksjonalitet for å håndtere flere enheter som er tilkoblet og lagrer all relevant informasjon om enhetene(koblingsobjekt, navn, id). Grunnen til at en server trengs, er at enheten kan flyttes over flere nettverk og vil aldri ha en statisk IP adresse. Enheten kan da koble seg opp til en server som håndtere all kontakt mot brukerapplikasjoner. I prinsipp kunne en enhet ha koblet seg direkte opp mot brukerapplikasjonen, men dette vil komplisere bruken av flere enheter betraktelig. Serveren vil også kunne brukes mer aktivt i fremtidige utvidelser, ved for eksempel lagring av statistikk om enheten, samt håndtere feilmeldinger og skape et mye enklere sett av kommandoer som brukeren må forholde seg til.
 
 \section{Teknologi}
-Teknologien som blir brukt for utforming av serveren er Node.js\cite{Nodejs}. Node.js er en platform som er bygd på Chrome sin javascript runtime for å lett bygge raske, skalerbare nettverkapplikasjoner. Grunnen til at denne teknologien ble valgt et først og fremst at det er svært enkelt sette opp en enkel server, samt at Node.js tilbyr enkel interaksjon mot brukerapplikasjoner. 
+Teknologien som blir brukt for utforming av serveren er Node.js\cite{Nodejs}. Node.js er en platform som er bygd på Chrome sin javascript runtime for å lett bygge raske, skalerbare nettverkapplikasjoner. Grunnen til at denne teknologien ble valgt et først og fremst at det er svært enkelt sette opp en enkel server, samt at Node.js tilbyr enkel interaksjon mot brukerapplikasjoner. Se figur \ref{htpserv} for en enkel HTTP server.
 
-[WEBSERVER KODEEKSEMPELBILDE]
+\begin{figure}[H]
+	\includegraphics[scale=1.2]{imgs/node_basic_server}
+	\centering
+	\caption{En enkel HTTP server skrevet i Node.js}
+	\label{htpserv}
+\end{figure}
 
 \section{Serveroppbygning}
 Serveren er bygd opp av tre moduler. En mastermodul som håndterer instansiering av serveren, en modul for koble opp mot enheten, og til slutt en modul for å koble opp mot brukerapplikasjoner. 
-
-[RELEVANT SKILDRING AV MODULENE]
 
 \subsection{Mastermodul}
 Mastermodulen importerer alle aktuelle bibliotek som brukes (se tabell \ref{serverBibliotek}). I tillegg lager den en HTTP server som brukerapplikasjoner tar i bruk, samt setter opp en socket som kobles opp mot enheten(e).
@@ -219,13 +243,13 @@ Modulen for å koble opp mot brukeren er en http-server. Http-serveren genererer
 		\hline 
 		\textbf{Bibliotek }& \textbf{Informasjon} \\ 
 		\hline 
-		Express.js &   \\ 
+		Express.js & Raskt og minimalistisk web-rammeverk for Node.js. \\
 		\hline 
-		Net &  \\ 
+		Net & Modul som tilbyr en asynkron netverkwrapper. \\
 		\hline 
-		JSON &  	\\ 
+		JSON &  JavaScript Object Notation, data format for web-kommunikasjon. \\
 		\hline 
-		BodyParser &  	\\  
+		BodyParser &  Parser for blant annet JSON. \\
 		\hline 
 	\end{tabular} 
 	\centering
@@ -239,13 +263,25 @@ For å demonstrere og teste APIet har vi laget to applikasjoner med forskjellig 
 \section{Kontrollpanel}
 For å demonstrere hvordan og hva man kan bruke APIet til har gruppen laget en enkel web applikasjon som lar brukeren styre et kjøretøy gjennom nettleseren sin. Dette fungerer som et enkelt kontrollpanel og kan brukes på både mobiltelefon og desktop. Nettsiden består i hovedsak av to slidere, en som styrer hastighet og en som styrer retning/svinging. I tillegg til enkle brytere for styring er det en tabell som viser live informasjon fra en servo. Dette er for å demonstrere hva slags informasjon som er tilgjengelig for sluttbruker.
 
-[BILDE]
+\begin{figure}[H]
+	\includegraphics[scale=0.5]{imgs/Speedometer}
+	\centering
+	\caption{jQuery Speedometer}
+	\label{speed}
+\end{figure}
 
 \subsection{Utvikling}
 Nettsiden er utviklet i standard HTML5, javascript og CSS. Foundation\cite{Foundation} blir brukt for å gjøre siden responsiv, det vil si at samme siden kan kjøre og se bra ut på forskjellige skjermstørrelser, noe som gjør at man ikke trenger å kode en egen versjon for telefoner og nettbrett. jQuery\cite{jQuery} og jQuery Speedometer\cite{jQuerySpeed} brukes for å lage et speedometer som viser farten til kjøretøyet.
 
 \section{Kontroller applikasjon}
 Dette er den andre av to applikasjoner som gruppen har utviklet. Applikasjonen tar input fra en Playstation eller Xbox kontroller, pakker det inn i et JSON objekt og sender det til serveren. For å demonstrere bil-abstraksjonslaget styrer kontrolleren kjøretøyet ved å akselerere og styre svinging med joystickene, på samme måte som de fleste videospill gjør. Dette gjør at det føles ganske naturlig og styre kjøretøyet for de som har spilt videospill før.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.15]{imgs/Playstation}
+	\centering
+	\caption{Playstation Kontroller}
+	\label{playstat}
+\end{figure}
 
 \subsection{Utvikling}
 Dette programmet er utviklet i Java 1.8\cite{Java}. For å håndtere kontroller input brukes biblioteket jGamepad\cite{jGamepad}. Det siste biblioteket som brukes er GSON\cite{GSON} som konverterer objekter til JSON som kan sendes og blir håndtert av serveren. Kommunikasjonen til serveren foregår ved at applikasjonene lager en HTTP pakke med all relevant informasjon fra kontrolleren, og sender det til serveren.
@@ -359,7 +395,7 @@ Som en helhet har prosjektet gått bra. Oppgaven var litt lite spesifisert men d
 
 \bibitem{GSON}
 	GSON, Java bibliotek for å konvertere objekter til JSON
-	\\\textit{https://code.google.com/p/google-gson/}
+	\\\texttt{https://code.google.com/p/google-gson/}
 
 \bibitem{XInput}
 	XInput Wrapper, programmvare for å emulere XBox kontroller

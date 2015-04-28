@@ -14,31 +14,31 @@
 \contentsline {subsection}{\numberline {3.1.1}Hjernen}{11}
 \contentsline {subsection}{\numberline {3.1.2}Wifi}{12}
 \contentsline {subsection}{\numberline {3.1.3}Servo oppkobling}{12}
-\contentsline {section}{\numberline {3.2}Programvaren}{12}
-\contentsline {subsection}{\numberline {3.2.1}Spr\IeC {\r a}k}{13}
-\contentsline {subsection}{\numberline {3.2.2}Operativsystem}{13}
-\contentsline {subsection}{\numberline {3.2.3}Maskinvare Detaljer}{13}
-\contentsline {subsubsection}{Raspberry Pi}{14}
-\contentsline {subsubsection}{St\IeC {\o }mforsyninger}{14}
-\contentsline {subsection}{\numberline {3.2.4}Programvare Detaljer}{15}
-\contentsline {subsection}{\numberline {3.2.5}Python Implementasjon}{15}
-\contentsline {subsection}{\numberline {3.2.6}Linux Konfigurasjon}{15}
-\contentsline {chapter}{\numberline {4}Serverlaget}{17}
-\contentsline {section}{\numberline {4.1}Teknologi}{17}
-\contentsline {section}{\numberline {4.2}Serveroppbygning}{18}
-\contentsline {subsection}{\numberline {4.2.1}Mastermodul}{18}
-\contentsline {subsection}{\numberline {4.2.2}Socketmodul}{18}
-\contentsline {subsection}{\numberline {4.2.3}Restmodul}{18}
-\contentsline {chapter}{\numberline {5}Endepunkter}{20}
-\contentsline {section}{\numberline {5.1}Kontrollpanel}{20}
-\contentsline {subsection}{\numberline {5.1.1}Utvikling}{20}
-\contentsline {section}{\numberline {5.2}Kontroller applikasjon}{21}
-\contentsline {subsection}{\numberline {5.2.1}Utvikling}{21}
-\contentsline {chapter}{\numberline {6}Videre arbeid}{22}
-\contentsline {section}{\numberline {6.1}St\IeC {\o }tte for sensorer}{22}
-\contentsline {section}{\numberline {6.2}Eksponere lav-niv\IeC {\r a} funksjonalitet}{22}
-\contentsline {section}{\numberline {6.3}Abstraksjonslag for robot}{22}
-\contentsline {section}{\numberline {6.4}Logging og statistikk}{23}
-\contentsline {section}{\numberline {6.5}Bruddh\IeC {\r a}ndtering}{23}
-\contentsline {section}{\numberline {6.6}Sikkerhet og autorisasjon}{23}
-\contentsline {chapter}{\numberline {7}Konklusjon}{24}
+\contentsline {section}{\numberline {3.2}Programvaren}{14}
+\contentsline {subsection}{\numberline {3.2.1}Spr\IeC {\r a}k}{14}
+\contentsline {subsection}{\numberline {3.2.2}Operativsystem}{14}
+\contentsline {subsection}{\numberline {3.2.3}Maskinvare Detaljer}{15}
+\contentsline {subsubsection}{Raspberry Pi}{15}
+\contentsline {subsubsection}{St\IeC {\o }mforsyninger}{16}
+\contentsline {subsection}{\numberline {3.2.4}Programvare Detaljer}{16}
+\contentsline {subsection}{\numberline {3.2.5}Python Implementasjon}{16}
+\contentsline {subsection}{\numberline {3.2.6}Linux Konfigurasjon}{17}
+\contentsline {chapter}{\numberline {4}Serverlaget}{18}
+\contentsline {section}{\numberline {4.1}Teknologi}{18}
+\contentsline {section}{\numberline {4.2}Serveroppbygning}{19}
+\contentsline {subsection}{\numberline {4.2.1}Mastermodul}{19}
+\contentsline {subsection}{\numberline {4.2.2}Socketmodul}{19}
+\contentsline {subsection}{\numberline {4.2.3}Restmodul}{20}
+\contentsline {chapter}{\numberline {5}Endepunkter}{21}
+\contentsline {section}{\numberline {5.1}Kontrollpanel}{21}
+\contentsline {subsection}{\numberline {5.1.1}Utvikling}{22}
+\contentsline {section}{\numberline {5.2}Kontroller applikasjon}{22}
+\contentsline {subsection}{\numberline {5.2.1}Utvikling}{23}
+\contentsline {chapter}{\numberline {6}Videre arbeid}{24}
+\contentsline {section}{\numberline {6.1}St\IeC {\o }tte for sensorer}{24}
+\contentsline {section}{\numberline {6.2}Eksponere lav-niv\IeC {\r a} funksjonalitet}{24}
+\contentsline {section}{\numberline {6.3}Abstraksjonslag for robot}{24}
+\contentsline {section}{\numberline {6.4}Logging og statistikk}{25}
+\contentsline {section}{\numberline {6.5}Bruddh\IeC {\r a}ndtering}{25}
+\contentsline {section}{\numberline {6.6}Sikkerhet og autorisasjon}{25}
+\contentsline {chapter}{\numberline {7}Konklusjon}{26}
