@@ -143,8 +143,8 @@ Gruppen vurderte først en Arduino\cite{Arduino}. Arduino er enkle datamaskiner 
 	\label{Rasp}
 \end{figure}
 
-\subsection{Servo oppkobling}
-Dynamixel bussen kommuniserer med en Raspberry gjennom USB porten via en kommersiell adapter\cite{USBadapter}. Kontroll-programvaren detekterer selv antall servoer tilkoblet bussen og er designet for å gi “plug and play” funksjonalitet. Som batteripakke til Raspberryen ble en strømbank av typen Ye! Energy Mini\cite{Energybank} koblet til mikroUSB inngangen på Raspberryen. Servoene fikk strøm fra den kommersielle Dynamixel batteripakken. Merk at disse batteripakkene lett kan byttes ut med andre alternativer så lenge de leverer riktig spenning og har rimelig energikapasitet da batteritilkoblingene er svært generelle og bruker standariserte tilkoblinger. Det er også mulig å koble både Raspberryen og servoene til samme batteripakke, men dette vil kreve ekstra maskinvare i form av strømforsyning og spenningsregulator. Dette vil gjøre systemet mer kompakt, men vil legge til et lag med økt kompleksitet av maskinvare.
+\subsection{Oppkobling}
+Dynamixel bussen kommuniserer med en Raspberry Pi gjennom USB porten via en kommersiell adapter\cite{USBadapter}. Kontrollprogramvaren detekterer selv antall servoer tilkoblet bussen og er designet for å gi “plug and play” funksjonalitet. Som batteripakke til Raspberry Pi ble en strømbank av typen Ye! Energy Mini\cite{Energybank} koblet til mikroUSB inngangen. Servoene fikk strøm fra den kommersielle Dynamixel batteripakken. Merk at disse batteripakkene kan byttes ut med andre alternativer så lenge de leverer riktig spenning. Det er også mulig å koble både Raspberry Pi og servoene til samme batteripakke, men dette vil kreve ekstra maskinvare i form av strømforsyning og spenningsregulator. Dette vil gjøre systemet mer kompakt, men vil øke kompleksiteten av maskinvaren.
 
 \begin{figure}[H]
 	\includegraphics[scale=0.07]{imgs/full_set}
@@ -161,9 +161,9 @@ Dynamixel bussen kommuniserer med en Raspberry gjennom USB porten via en kommers
 \end{figure}
 
 \section{Programvaren}
-Vi vurderte i begynnelsen å skrive vårt eget lavnivåbibliotek, hovedsakelig for å kunne eliminere bruken av en komersiell adapter mellom Raspberry pi’en og Dynamixel bussen. Det ble raskt oppdaget at dette ikke var praktisk mulig på grunn av strukturen til bussen samt alle de potensielle feilkildene det ga opphav til. Det ville blant annet ha krevd en egen tri-state buffer for å gjøre det mulig å kommunisere med bussen over UART, noe som ville ha økt maskinvare kompleksiteten og satt større krav til maskinvarekonstruksjon for eventuelle fremtidige brukere.
+I begynnelsen ble det vurdert å skrive et lavnivåbibliotek, hovedsakelig for å kunne eliminere bruken av en kommersiell adapter mellom Raspberry Pi og Dynamixel bussen. Det ble raskt oppdaget at dette ikke var praktisk mulig på grunn av strukturen til bussen samt alle de potensielle feilkildene. Dette krevde en egen tri-state buffer\cite{triBuff} for å muliggjøre kommunikasjon med bussen over I/O-pinnene på Raspberry Pi. Som konsekvens økte maskinvarekompleksiteten og satte for store krav til maskinvarekonstruksjon for eventuelle fremtidige brukere.
 
-Bruk av den kommersielle adapteren førte til at programvaren kun trengte å kommunisere med en standard USB port, noe de aller fleste operativsystemer allerede har driverstøtte for. Dermed kunne programvaren i teorien struktureres slik at den kunne kjøre på en hvilken som helst maskinvare med USB porter og støtte for en Linux distribusjon, noe som ble et av hovedmålene med programvaren.
+Bruk av den kommersielle adapteren førte til at programvaren kun trengte å kommunisere gjennom standard USB, noe de aller fleste operativsystemer allerede har driverstøtte for. Dermed kunne programvaren i teorien struktureres slik at den kunne kjøre på en hvilken som helst maskinvare med USB porter og støtte for en Linux distribusjon, noe som ble et av hovedmålene med programvaren.
 
 \subsection{Språk}
 Tidlig i prosjektperioden satt gruppen krav til programvaren på enheten. Det viktigste var at programvaren skulle være enkel å forstå og være fleksibel på mange områder. I tillegg til dette skulle det være mulig å kjøre programvaren på mange ulike plattformer. Ut i fra kravene kunne gruppen valgt å benytte seg av python eller C. 
@@ -404,6 +404,10 @@ Som en helhet har prosjektet gått bra. Oppgaven var litt lite spesifisert men d
 \bibitem{Arduino}
 	Arduino, mikrokontroller
 	\\\texttt{http://www.arduino.cc/}
+	
+\bibitem{triBuff}
+	Tri-state buffer, muliggjør toveis kommunikasjon med Halv-Duplex
+	\\\texttt{http://www.futurlec.com/74LS/74LS241.shtml}
 
 \end{thebibliography}
 

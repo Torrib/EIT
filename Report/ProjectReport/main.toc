@@ -14,7 +14,7 @@
 \contentsline {chapter}{\numberline {3}Enhetslaget}{11}
 \contentsline {section}{\numberline {3.1}Maskinvaren}{11}
 \contentsline {subsection}{\numberline {3.1.1}Raspberry Pi}{11}
-\contentsline {subsection}{\numberline {3.1.2}Servo oppkobling}{12}
+\contentsline {subsection}{\numberline {3.1.2}Oppkobling}{12}
 \contentsline {section}{\numberline {3.2}Programvaren}{13}
 \contentsline {subsection}{\numberline {3.2.1}Spr\IeC {\r a}k}{14}
 \contentsline {subsection}{\numberline {3.2.2}Operativsystem}{14}
